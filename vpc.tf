@@ -59,7 +59,7 @@ resource "aws_security_group" "nat" {
     from_port = 80
     to_port = 80
     protocol = "tcp"
-    security_group = [
+    security_groups = [
         "${aws_security_group.app1.id}",
         "${aws_security_group.data1.id}"
     ]
@@ -69,7 +69,7 @@ resource "aws_security_group" "nat" {
     from_port = 443
     to_port = 443
     protocol = "tcp"
-    security_group = [
+    security_groups = [
         "${aws_security_group.app1.id}",
         "${aws_security_group.data1.id}"
     ]

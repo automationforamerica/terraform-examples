@@ -13,7 +13,7 @@ resource "aws_subnet" "elb1" {
     availability_zone = "${lookup(var.aws_zones, concat("zone", count.index))}"
     count = 3
     tags {
-        Name = "${concat(self.id, " - zone ", count.index)}"
+       Name = "${concat("elb1 - zone ", count.index)}"
     }
 }
 
@@ -80,7 +80,7 @@ resource "aws_subnet" "app1" {
     availability_zone = "${lookup(var.aws_zones, concat("zone", count.index))}"
     count = 3
     tags {
-        Name = "${concat(self.id, " - zone ", count.index)}"
+       Name = "${concat("app1 - zone ", count.index)}"
     }
 }
 
@@ -115,7 +115,7 @@ resource "aws_security_group" "app1" {
     from_port = 80
     to_port = 80
     protocol = "tcp"
-    security_group = ["${aws_security_group.elb1.id}"]
+    security_groups = ["${aws_security_group.elb1.id}"]
   }
   vpc_id = "${aws_vpc.prod1.id}"
 }
@@ -138,7 +138,7 @@ resource "aws_subnet" "data1" {
     availability_zone = "${lookup(var.aws_zones, concat("zone", count.index))}"
     count = 3
     tags {
-        Name = "${concat(self.id, " - zone ", count.index)}"
+       Name = "${concat("data1 - zone ", count.index)}"
     }
 }
 
@@ -174,14 +174,14 @@ resource "aws_security_group" "data1" {
     from_port = 3306
     to_port = 3306
     protocol = "tcp"
-    security_group = ["${aws_security_group.app1.id}"]
+    security_groups = ["${aws_security_group.app1.id}"]
   }
 
   ingress {
     from_port = 6379
     to_port = 6379
     protocol = "tcp"
-    security_group = ["${aws_security_group.app1.id}"]
+    security_groups = ["${aws_security_group.app1.id}"]
   }
 
   vpc_id = "${aws_vpc.prod1.id}"
