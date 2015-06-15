@@ -25,6 +25,36 @@ resource "aws_security_group" "elb1" {
   vpc_id = "${aws_vpc.prod1.id}"
 }
 
+#####################################
+#### BEGIN: CACHE TIER RESOURCES ####
+#####################################
+
+# varnish-cache Security Group
+# TODO: Update to include access from Mgmt Subnet (or SG) on port 22 (SSH)
+
+resource "aws_security_group" "varnish-cache" {
+  name = "varnish-cache"
+  description = "Allow services from the ELB subnet to Varnish servers"
+  ingress {
+    from_port = 80
+    to_port = 80
+    protocol = "tcp"
+    security_groups = ["${aws_security_group.elb1.id}"]
+  }
+  vpc_id = "${aws_vpc.prod1.id}"
+}
+
+resource "aws_security_group" "app-internal-elb" {
+  name = "internal-elb"
+  description = "Allow services from Varnish to the internal instances"
+  ingress {
+    from_port = 8001
+    to_port = 8001
+    protocol = "tcp"
+    security_groups = ["${aws_security_group.varnish-cache.id}"]
+  }
+  vpc_id = "${aws_vpc.prod1.id}"
+}
 
 ###################################
 #### BEGIN: APP TIER RESOURCES ####
@@ -37,10 +67,10 @@ resource "aws_security_group" "app1" {
   name = "app1"
   description = "Allow services from the ELB subnet to the App1 subnet"
   ingress {
-    from_port = 80
-    to_port = 80
+    from_port = 8001
+    to_port = 8001
     protocol = "tcp"
-    security_groups = ["${aws_security_group.elb1.id}"]
+    security_groups = ["${aws_security_group.app-internal-elb.id}"]
   }
   vpc_id = "${aws_vpc.prod1.id}"
 }
