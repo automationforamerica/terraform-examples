@@ -3,8 +3,13 @@ variable "aws_secret_key" {}
 variable "aws_region" {
     default = "us-west-1"
 }
+variable "aws_key_name" {}
+
 variable "aws_nat_ami" {
 	default = "ami-7da94839"
+}
+variable "aws_ubuntu_ami" {
+  default = "ami-d05e75b8"
 }
 
 variable "aws_zones" {
@@ -13,4 +18,12 @@ variable "aws_zones" {
         zone1 = "us-west-1b"
         zone2 = "us-west-1c"
     }
+}
+
+variable "db" {
+  default = {
+    name = "database_name"
+    username = "foobar"
+    password = "password"
+  }
 }
