@@ -69,3 +69,9 @@ resource "aws_subnet" "data1" {
        Name = "${concat("data1 - zone ", count.index)}"
     }
 }
+
+resource "aws_db_subnet_group" "app" {
+    name = "app"
+    description = "Subnets used for running the data tier"
+    subnet_ids = ["${aws_subnet.data1.0.id}", "${aws_subnet.data1.1.id}", "${aws_subnet.data1.2.id}"]
+}
