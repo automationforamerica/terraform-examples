@@ -1,4 +1,4 @@
-resource "aws_db_instance" "app-db" {
+resource "aws_db_instance" "app1_db" {
   identifier = "app-rds"
   allocated_storage = 10
   engine = "mysql"
@@ -11,8 +11,8 @@ resource "aws_db_instance" "app-db" {
   publicly_accessible = false
   storage_encrypted = true
   vpc_security_group_ids = ["${aws_security_group.data1.id}"]
-  db_subnet_group_name = "app"
-  name = "${lookup(var.db, "name")}"
-  username = "${lookup(var.db, "username")}"
-  password = "${lookup(var.db, "password")}"
+  db_subnet_group_name = "data1"
+  name = "${lookup(var.app1_db, "name")}"
+  username = "${lookup(var.app1_db, "username")}"
+  password = "${lookup(var.app1_db, "password")}"
 }

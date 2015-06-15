@@ -1,10 +1,14 @@
-variable "aws_access_key" {}
-variable "aws_secret_key" {}
+variable "aws_access_key" {
+    default = "1234"
+}
+variable "aws_secret_key" {
+    default = "1234"
+}
 variable "aws_region" {
     default = "us-west-1"
 }
 variable "aws_nat_ami" {
-	default = "ami-7da94839"
+    default = "ami-7da94839"
 }
 
 variable "aws_zones" {
@@ -13,4 +17,23 @@ variable "aws_zones" {
         zone1 = "us-west-1b"
         zone2 = "us-west-1c"
     }
+}
+
+variable "ssh_key" {
+    default {
+       key_name = "ops-shared-key"
+        public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQD3F6tyPEFEzV0LX3X8BsXdMsQz1x2cEikKDEY0aIj41qgxMCP/iteneqXSIFZBp5vizPvaoIR3Um9xK7PGoW8giupGn+EPuxIA4cDM4vzOqOkiMPhz5XK0whEjkVzTo4+S0puvDZuwIsdiW9mxhJc7tgBNL0cYlWSYVkz4G/fslNfRPW5mYAM49f4fhtxPb5ok4Q2Lg9dPKVHO/Bgeu5woMc7RY0p1ej6D4CKFE6lymSDJpW0YHX/wqE9+cfEauh7xZcG0q9t2ta6F6fmX0agvpFyZo8aFbXeUBr7osSCJNgvavWbM/06niWrOvYX2xwWdhXmXSrbX8ZbabVohBK41 email@example.com"
+    }
+}
+
+variable "app1_db" {
+  default = {
+    name = "database_name"
+    username = "foobar"
+    password = "password"
+  }
+}
+
+variable "aws_ubuntu_ami" {
+ default = "ami-d05e75b8"
 }

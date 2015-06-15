@@ -1,8 +1,7 @@
-#################################
-#### BEGIN: Shared Resources ####
-#################################
+####################
+#### BEGIN: VPC ####
+####################
 
-# VPC
 # https://www.terraform.io/docs/providers/aws/r/vpc.html
 resource "aws_vpc" "prod1" {
     cidr_block = "10.0.0.0/16"
