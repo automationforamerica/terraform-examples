@@ -45,7 +45,7 @@ resource "aws_route_table" "elb1" {
 resource "aws_route_table_association" "elb1" {
     subnet_id = "${element(aws_subnet.elb1.*.id, count.index)}"
     route_table_id = "${aws_route_table.elb1.id}"
-    count = 3
+    count = 2
 }
 
 
@@ -71,7 +71,7 @@ resource "aws_route_table" "app1" {
 resource "aws_route_table_association" "app1" {
     subnet_id = "${element(aws_subnet.app1.*.id, count.index)}"
     route_table_id = "${aws_route_table.app1.id}"
-    count = 3
+    count = 2
 }
 
 
@@ -97,6 +97,6 @@ resource "aws_route_table" "data1" {
 resource "aws_route_table_association" "data1" {
     subnet_id = "${element(aws_subnet.data1.*.id, count.index)}"
     route_table_id = "${aws_route_table.data1.id}"
-    count = 3
+    count = 2
 }
 
