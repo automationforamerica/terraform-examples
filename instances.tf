@@ -51,3 +51,22 @@ resource "aws_instance" "app_002" {
     Environment = "Production"
   }
 }
+
+resource "aws_instance" "app_admin_001" {
+  ami = "${var.aws_ubuntu_ami}"
+  availability_zone = "${lookup(var.aws_zones, "zone0")}"
+  instance_type = "m3.medium"
+  key_name = "${var.aws_key_name}"
+  subnet_id = "${aws_subnet.app1.0.id}"
+  security_groups = ["${aws_security_group.app1_admin.id}"]
+  associate_public_ip_address = true
+  source_dest_check = false
+
+  tags {
+    Name = "app-admin-001"
+    Role = "Wordpress"
+    WordpressRole = "Admin"
+    Environment = "Production"
+  }
+}
+

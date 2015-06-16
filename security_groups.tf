@@ -75,6 +75,30 @@ resource "aws_security_group" "app1" {
   vpc_id = "${aws_vpc.prod1.id}"
 }
 
+resource "aws_security_group" "app1_admin" {
+  name = "app1_admin"
+  description = "Selectively allow access to the administrative interface"
+  ingress {
+    from_port = 80
+    to_port = 8001
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  ingress {
+    from_port = 22
+    to_port = 22
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port = "0"
+    to_port = "0"
+    protocol = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  vpc_id = "${aws_vpc.prod1.id}"
+}
 
 ####################################
 #### BEGIN: DATA TIER RESOURCES ####
@@ -85,20 +109,20 @@ resource "aws_security_group" "app1" {
 # TODO: Update to include access from Mgmt Subnet (or SG) on port 22 (SSH)
 resource "aws_security_group" "data1" {
   name = "data1"
-  description = "Allow services from the ELB subnet to the data1 subnet"
+  description = "Allow services from the app subnets to the data1 subnet"
 
   ingress {
     from_port = 3306
     to_port = 3306
     protocol = "tcp"
-    security_groups = ["${aws_security_group.app1.id}"]
+    security_groups = ["${aws_security_group.app1.id}","${aws_security_group.app1_admin.id}"]
   }
 
   ingress {
     from_port = 6379
     to_port = 6379
     protocol = "tcp"
-    security_groups = ["${aws_security_group.app1.id}"]
+    security_groups = ["${aws_security_group.app1.id}","${aws_security_group.app1_admin.id}"]
   }
 
   vpc_id = "${aws_vpc.prod1.id}"
