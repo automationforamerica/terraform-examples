@@ -1,5 +1,5 @@
-resource "aws_elb" "app-external" {
-  name = "app-external"
+resource "aws_elb" "app1-external" {
+  name = "app1-external"
 
   listener = {
     instance_port = 80
@@ -16,11 +16,11 @@ resource "aws_elb" "app-external" {
 
   security_groups = ["${aws_security_group.elb1.id}"]
   subnets = ["${aws_subnet.elb1.0.id}"]
-  instances = ["${aws_instance.varnish.id}"]
+  instances = ["${aws_instance.varnish_001.id}"]
 }
 
-resource "aws_elb" "app-internal" {
-  name = "app-internal"
+resource "aws_elb" "app1-internal" {
+  name = "app1-internal"
 
   listener = {
     instance_port = 8001
@@ -45,5 +45,5 @@ resource "aws_elb" "app-internal" {
 
   security_groups = ["${aws_security_group.app-internal-elb.id}"]
   subnets = ["${aws_subnet.elb1.1.id}"]
-  instances = ["${aws_instance.app_001.id}","${aws_instance.app_002.id}"]
+  instances = ["${aws_instance.wordpress_001.id}","${aws_instance.wordpress_002.id}"]
 }
