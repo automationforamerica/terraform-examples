@@ -33,7 +33,7 @@ resource "aws_elb" "app-internal" {
     healthy_threshold = 2
     unhealthy_threshold = 2
     timeout = 3
-    target = "HTTP:80/health-check"
+    target = "HTTP:80/elb-status"
     interval = 30
   }
 
