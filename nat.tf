@@ -37,7 +37,7 @@ resource "aws_security_group" "nat" {
 resource "aws_instance" "nat" {
     ami = "${var.aws_nat_ami}"
     availability_zone = "${lookup(var.aws_zones, "zone0")}"
-    instance_type = "m1.small"
+    instance_type = "m3.medium"
     # key_name = "${var.aws_key_name}" # TODO setup a key
     security_groups = ["${aws_security_group.nat.id}"]
     subnet_id = "${aws_subnet.public.0.id}"
