@@ -9,7 +9,7 @@ variable "aws_nat_ami" {
 	default = "ami-7da94839"
 }
 variable "aws_ubuntu_ami" {
-  default = "ami-d05e75b8"
+  default = "ami-df6a8b9b"
 }
 
 variable "aws_zones" {
