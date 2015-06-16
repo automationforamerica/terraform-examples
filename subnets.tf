@@ -71,7 +71,7 @@ resource "aws_subnet" "data1" {
 }
 
 resource "aws_db_subnet_group" "app" {
-    name = "app"
+    name = "data1"
     description = "Subnets used for running the data tier"
     subnet_ids = ["${aws_subnet.data1.0.id}", "${aws_subnet.data1.1.id}", "${aws_subnet.data1.2.id}"]
 }

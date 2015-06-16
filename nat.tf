@@ -38,7 +38,7 @@ resource "aws_instance" "nat" {
     ami = "${var.aws_nat_ami}"
     availability_zone = "${lookup(var.aws_zones, "zone0")}"
     instance_type = "m1.small"
-    # key_name = "${var.aws_key_name}" # TODO setup a key
+    key_name = "${aws_key_pair.deployer.key_name}"
     security_groups = ["${aws_security_group.nat.id}"]
     subnet_id = "${aws_subnet.public.0.id}"
     associate_public_ip_address = true
