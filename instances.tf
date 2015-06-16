@@ -18,7 +18,7 @@ resource "aws_instance" "varnish" {
 
 resource "aws_instance" "app_001" {
   ami = "${var.aws_ubuntu_ami}"
-  availability_zone = "${lookup(var.aws_zones, "zone1")}"
+  availability_zone = "${lookup(var.aws_zones, "zone0")}"
   instance_type = "m3.medium"
   key_name = "${var.aws_key_name}"
   subnet_id = "${aws_subnet.app1.0.id}"
@@ -36,7 +36,7 @@ resource "aws_instance" "app_001" {
 
 resource "aws_instance" "app_002" {
   ami = "${var.aws_ubuntu_ami}"
-  availability_zone = "${lookup(var.aws_zones, "zone2")}"
+  availability_zone = "${lookup(var.aws_zones, "zone1")}"
   instance_type = "m3.medium"
   key_name = "${var.aws_key_name}"
   subnet_id = "${aws_subnet.app1.1.id}"
