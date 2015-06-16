@@ -43,7 +43,7 @@ resource "aws_subnet" "elb1" {
 # https://www.terraform.io/docs/providers/aws/r/subnet.html
 resource "aws_subnet" "app1" {
     vpc_id = "${aws_vpc.prod1.id}"
-    cidr_block = "${concat("10.0.", count.index, ".0/24")}"
+    cidr_block = "${concat("10.0.", (count.index + 1), ".0/24")}"
     availability_zone = "${lookup(var.aws_zones, concat("zone", count.index))}"
     count = 2
     tags {
