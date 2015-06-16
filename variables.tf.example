@@ -6,10 +6,14 @@ variable "aws_region" {
 variable "aws_key_name" {}
 
 variable "aws_nat_ami" {
-	default = "ami-7da94839"
+	default = "ami-918e62d5"
 }
 variable "aws_ubuntu_ami" {
   default = "ami-df6a8b9b"
+}
+
+variable "vpc_cidr" {
+  default = "10.0.0.0/16"
 }
 
 variable "aws_zones" {

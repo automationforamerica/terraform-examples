@@ -7,6 +7,8 @@ resource "aws_subnet" "public" {
     vpc_id = "${aws_vpc.prod1.id}"
     cidr_block = "${concat("10.0.0.0/24")}"
     availability_zone = "${lookup(var.aws_zones, "zone0")}"
+    map_public_ip_on_launch = true
+    depends_on = ["aws_internet_gateway.default"]
     tags {
         Name = "Public DMZ"
     }

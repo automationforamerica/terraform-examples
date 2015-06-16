@@ -22,6 +22,13 @@ resource "aws_security_group" "elb1" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  egress {
+    from_port = "0"
+    to_port = "0"
+    protocol = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   vpc_id = "${aws_vpc.prod1.id}"
 }
 
@@ -41,6 +48,19 @@ resource "aws_security_group" "varnish-cache" {
     protocol = "tcp"
     security_groups = ["${aws_security_group.elb1.id}"]
   }
+  ingress {
+    from_port = 22
+    to_port = 22
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port = "0"
+    to_port = "0"
+    protocol = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
   vpc_id = "${aws_vpc.prod1.id}"
 }
 
@@ -52,6 +72,13 @@ resource "aws_security_group" "app-internal-elb" {
     to_port = 8001
     protocol = "tcp"
     security_groups = ["${aws_security_group.varnish-cache.id}"]
+  }
+
+  egress {
+    from_port = "0"
+    to_port = "0"
+    protocol = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
   vpc_id = "${aws_vpc.prod1.id}"
 }
@@ -71,6 +98,19 @@ resource "aws_security_group" "app1" {
     to_port = 8001
     protocol = "tcp"
     security_groups = ["${aws_security_group.app-internal-elb.id}"]
+  }
+  ingress {
+    from_port = 22
+    to_port = 22
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port = "0"
+    to_port = "0"
+    protocol = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
   vpc_id = "${aws_vpc.prod1.id}"
 }
