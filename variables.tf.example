@@ -20,7 +20,6 @@ variable "aws_zones" {
     default = {
         zone0 = "us-west-1a"
         zone1 = "us-west-1b"
-        zone2 = "us-west-1c"
     }
 }
 

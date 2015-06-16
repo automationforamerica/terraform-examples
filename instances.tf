@@ -9,7 +9,7 @@ resource "aws_key_pair" "deployer" {
 # Varnish server 001
 resource "aws_instance" "varnish_001" {
   ami = "${var.aws_ubuntu_ami}"
-  availability_zone = "${lookup(var.aws_zones, "zone0")}"
+  #availability_zone = "${lookup(var.aws_zones, "zone0")}"
   instance_type = "m3.medium"
   key_name = "${aws_key_pair.deployer.key_name}"
   subnet_id = "${aws_subnet.app1.0.id}"
@@ -28,7 +28,7 @@ resource "aws_instance" "varnish_001" {
 # Wordpress server 001
 resource "aws_instance" "wordpress_001" {
   ami = "${var.aws_ubuntu_ami}"
-  availability_zone = "${lookup(var.aws_zones, "zone1")}"
+  #availability_zone = "${lookup(var.aws_zones, "zone1")}"
   instance_type = "m3.medium"
   key_name = "${aws_key_pair.deployer.key_name}"
   subnet_id = "${aws_subnet.app1.0.id}"
@@ -47,7 +47,7 @@ resource "aws_instance" "wordpress_001" {
 # Wordpress server 002
 resource "aws_instance" "wordpress_002" {
   ami = "${var.aws_ubuntu_ami}"
-  availability_zone = "${lookup(var.aws_zones, "zone1")}"
+  #availability_zone = "${lookup(var.aws_zones, "zone1")}"
   instance_type = "m3.medium"
   key_name = "${aws_key_pair.deployer.key_name}"
   subnet_id = "${aws_subnet.app1.0.id}"
@@ -66,7 +66,7 @@ resource "aws_instance" "wordpress_002" {
 # Wordpress admin server
 resource "aws_instance" "wordpress_admin_001" {
   ami = "${var.aws_ubuntu_ami}"
-  availability_zone = "${lookup(var.aws_zones, "zone2")}"
+  #availability_zone = "${lookup(var.aws_zones, "zone1")}"
   instance_type = "m3.medium"
   key_name = "${aws_key_pair.deployer.key_name}"
   subnet_id = "${aws_subnet.app1.1.id}"
