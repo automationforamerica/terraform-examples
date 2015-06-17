@@ -1,6 +1,6 @@
 resource "aws_db_instance" "app-db" {
   identifier = "app-rds"
-  allocated_storage = 10
+  allocated_storage = 1024
   engine = "mysql"
   engine_version = "5.6.22"
   instance_class = "db.m3.xlarge"
@@ -22,7 +22,7 @@ resource "aws_db_instance" "app-db" {
 
 resource "aws_db_instance" "app-db-read" {
   identifier = "app-rds-read"
-  allocated_storage = 10
+  allocated_storage = "${aws_db_instance.app-db.allocated_storage}"
   engine = "mysql"
   engine_version = "5.6.22"
   instance_class = "db.m3.medium"
