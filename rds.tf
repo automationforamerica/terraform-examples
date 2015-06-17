@@ -15,6 +15,9 @@ resource "aws_db_instance" "app-db" {
   name = "${lookup(var.db, "name")}"
   username = "${lookup(var.db, "username")}"
   password = "${lookup(var.db, "password")}"
+  backup_window = "07:00-07:30"
+  maintenance_window = "Tue:07:30-Tue:08:00"
+  apply_immediately = true
 }
 
 resource "aws_db_instance" "app-db-read" {
@@ -33,4 +36,6 @@ resource "aws_db_instance" "app-db-read" {
   username = "${lookup(var.db, "username")}"
   password = "${lookup(var.db, "password")}"
   replicate_source_db = "${aws_db_instance.app-db.id}"
+  maintenance_window = "Mon:07:00-Mon:07:30"
+  backup_window = "07:30-08:00"
 }
