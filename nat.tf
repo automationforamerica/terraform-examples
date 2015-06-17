@@ -10,8 +10,10 @@ resource "aws_security_group" "nat" {
     to_port = 80
     protocol = "tcp"
     security_groups = [
+        "${aws_security_group.app1_admin.id}",
         "${aws_security_group.app1.id}",
-        "${aws_security_group.data1.id}"
+        "${aws_security_group.data1.id}",
+        "${aws_security_group.varnish-cache.id}"
     ]
   }
 
@@ -20,28 +22,16 @@ resource "aws_security_group" "nat" {
     to_port = 443
     protocol = "tcp"
     security_groups = [
+        "${aws_security_group.app1_admin.id}",
         "${aws_security_group.app1.id}",
-        "${aws_security_group.data1.id}"
+        "${aws_security_group.data1.id}",
+        "${aws_security_group.varnish-cache.id}"
     ]
   }
 
   ingress {
     from_port = 22
     to_port = 22
-    protocol = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port = 443
-    to_port = 443
-    protocol = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port = 943
-    to_port = 943
     protocol = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -71,4 +61,8 @@ resource "aws_instance" "nat" {
   subnet_id = "${aws_subnet.public.0.id}"
   associate_public_ip_address = true
   source_dest_check = false
+
+  tags {
+    Name = "NAT"
+  }
 }
