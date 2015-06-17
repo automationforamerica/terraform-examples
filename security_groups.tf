@@ -103,7 +103,7 @@ resource "aws_security_group" "app1" {
     from_port = 22
     to_port = 22
     protocol = "tcp"
-    security_groups = ["${aws_security_group.vpn.id}"]
+    security_groups = ["${aws_security_group.vpn.id}", "${aws_security_group.app1_admin.id}"]
     self = true
   }
 
