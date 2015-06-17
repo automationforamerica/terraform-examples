@@ -52,7 +52,7 @@ resource "aws_security_group" "varnish-cache" {
     from_port = 22
     to_port = 22
     protocol = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    security_groups = ["${aws_security_group.vpn.id}"]
   }
 
   egress {
@@ -103,7 +103,8 @@ resource "aws_security_group" "app1" {
     from_port = 22
     to_port = 22
     protocol = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    security_groups = ["${aws_security_group.vpn.id}"]
+    self = true
   }
 
   egress {
@@ -122,13 +123,13 @@ resource "aws_security_group" "app1_admin" {
     from_port = 80
     to_port = 8001
     protocol = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    security_groups = ["${aws_security_group.vpn.id}"]
   }
   ingress {
     from_port = 22
     to_port = 22
     protocol = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    security_groups = ["${aws_security_group.vpn.id}"]
   }
 
   egress {
@@ -155,7 +156,7 @@ resource "aws_security_group" "data1" {
     from_port = 3306
     to_port = 3306
     protocol = "tcp"
-    security_groups = ["${aws_security_group.app1.id}","${aws_security_group.app1_admin.id}"]
+    security_groups = ["${aws_security_group.app1.id}","${aws_security_group.app1_admin.id}","${aws_security_group.vpn.id}"]
   }
 
   vpc_id = "${aws_vpc.prod1.id}"
