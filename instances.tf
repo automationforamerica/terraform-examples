@@ -9,7 +9,7 @@ resource "aws_instance" "varnish" {
   source_dest_check = false
 
   tags {
-    Name = "app-001"
+    Name = "app-cache-001"
     Role = "Cache"
     WordpressRole = "Varnish"
     Environment = "Production"
