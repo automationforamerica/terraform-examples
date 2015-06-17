@@ -19,6 +19,10 @@ variable "vpc_cidr" {
   default = "10.0.0.0/16"
 }
 
+variable "aws_dns_zone" {
+  default = "zombo.gop"
+}
+
 variable "aws_zones" {
     default = {
         zone0 = "us-west-1a"
