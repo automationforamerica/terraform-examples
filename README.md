@@ -14,5 +14,7 @@ Rename variables.tf.example to variables.tf in order to configure the region and
 # Getting Off the Ground
 
 1. Run `terraform apply` and specify the requested arguments
-2. SSH into the IP of the deployed `nat` server with your keypair under the username `openvpnas`.
+2. SSH into the IP of the deployed `vpn` server with your keypair under the username `openvpnas`.
 3. Follow the instructions. Of note, OpenVPN should listen on `0.0.0.0`.
+4. Change the password of the `openvpn` user via `sudo su` and `passwd`
+5. Connect your local machine to the VPN as `openvpn`

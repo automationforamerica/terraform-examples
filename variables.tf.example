@@ -5,8 +5,11 @@ variable "aws_region" {
 }
 variable "aws_key_name" {}
 
-variable "aws_nat_ami" {
+variable "aws_vpn_ami" {
 	default = "ami-918e62d5"
+}
+variable "aws_nat_ami" {
+	default = "ami-7da94839"
 }
 variable "aws_ubuntu_ami" {
   default = "ami-df6a8b9b"
